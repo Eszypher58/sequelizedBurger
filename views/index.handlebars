@@ -2,9 +2,9 @@
 
 <h2>Burgers in Queue</h2>
 {{#each data}}
-{{#unless this.devoured}}
-<h3>{{this.id}}. {{this.burger_name}}</h3>
-<form action="/{{this.id}}?_method=PUT" method="POST">
+{{#unless this.dataValues.devoured}}
+<h3>{{this.Datavalues.id}}. {{this.dataValues.burger_name}}</h3>
+<form action="/{{this.dataValues.id}}?_method=PUT" method="POST">
 	<input type="hidden">
 	<button type="submit">Devour!</button>
 </form>
@@ -13,8 +13,8 @@
 
 <h2>Burgers Devoured</h2>
 {{#each data}}
-{{#if this.devoured}}
-<h3>{{this.id}}. {{this.burger_name}}</h3>
+{{#if this.dataValues.devoured}}
+<h3>{{this.dataValues.id}}. {{this.dataValues.burger_name}}</h3>
 {{/if}}
 {{/each}}
 

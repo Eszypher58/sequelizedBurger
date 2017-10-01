@@ -1,52 +1,24 @@
-var orm = require("../config/orm.js");
+module.exports = function(sequelize, DataType){
 
-var burgerORM = new orm();
-//var hamburger = { burger_name: "Chicken Burger", devoured: false}
+	var Burgers = sequelize.define("burgers", {
 
-//myORM.selectAll();
-//myORM.insertOne([["Chicken Burger", true]]);
-//myORM.updateOne([false, "Chicken Burger"]);
+		burger_name: {
 
-function Burger() {
+			type: DataType.STRING,
 
-	this.refresh = function(cb) {
+		},
 
-		burgerORM.selectAll("*", "burgers", function(err, result){
+		devoured: {
 
-			cb(err, result);
+			type: DataType.BOOLEAN,
+			defaultValue: false,
 
-		});
+		}
 
-	}
 
-	this.add = function(name, bool, cb) {
 
-		burgerORM.insertOne(name, bool, function(err, result){
+	})
 
-			cb(err, result);
-
-		});
-
-	}
-
-	this.devoured = function(id, cb) {
-
-		burgerORM.updateOne(id, function(err, result){
-
-			cb(err, result);
-
-		});
-
-	}
+	return Burgers
 
 }
-
-//test case
-var myBurger = new Burger();
-
-//myBurger.refresh(function(){});
-
-//myBurger.add("Char Burger", true, function(){});
-
-
-module.exports = Burger;
