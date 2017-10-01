@@ -11,15 +11,29 @@ router.get("/", function(req, res){
 
 	//console.log(db);
 
-	db.burgers.findAll({}).then(function(burgers){
+		//console.log("here");
+	//db.burgers.hasOne(db.customer, {foreignKey:"eaten", targetKey: "name"});
+	db.burgers.belongsTo(db.customer, {foreignKey:"burger_name", targetKey:"eaten_burger"});
 
-		//console.log(result[0]);
 
-		db.customer.findAll()
+	console.log(db.burgers);
 
+	db.burgers.findAll({
+
+		include:[{
+
+			model:db.customer,
+
+		}]
+
+	}).then(function(burgers){
+
+		console.log(burgers);
 		res.render("index", { data: burgers });
 
 	})
+
+	
 
 });
 
