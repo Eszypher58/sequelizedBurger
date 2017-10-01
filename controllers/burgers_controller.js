@@ -11,11 +11,13 @@ router.get("/", function(req, res){
 
 	//console.log(db);
 
-	db.burgers.findAll({}).then(function(result){
+	db.burgers.findAll({}).then(function(burgers){
 
 		//console.log(result[0]);
 
-		res.render("index", { data: result });
+		db.customer.findAll()
+
+		res.render("index", { data: burgers });
 
 	})
 
@@ -26,6 +28,7 @@ router.post("/", function(req, res){
 	console.log("hit / with post");
 
 	console.log(req.body.name);
+	//console.log(req.body.customer_name);
 
 	db.burgers.create({
 
@@ -45,12 +48,36 @@ router.put("/:id", function(req, res){
 	console.log("hit / with put");
 
 	console.log(req.params.id);
+	console.log(req.body.customer_name);
 
-	db.burgers.update({devoured: true},{ where: {id: req.params.id}}).then(function(result){
+	var burgerID = req.params.id;
+	var customerName = req.body.customer_name;
+	var burgerName = "";
 
-		res.redirect("/");
+	db.burgers.findAll({where: {id: req.params.id}}).then(function(result){
+
+		console.log(result[0].dataValues.burger_name);
+
+		var burgerName = result[0].dataValues.burger_name;
+
+		db.burgers.update({devoured: true},{ where: {id: req.params.id}}).then(function(result){
+			
+			db.customer.create({
+
+				name: customerName,
+				eaten_burger: burgerName,
+
+			}).then(function(result){
+			
+				res.redirect("/");
+			
+			})
+			
+		})
 
 	})
+
+
 
 });
 
