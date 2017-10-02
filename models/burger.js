@@ -5,6 +5,12 @@ module.exports = function(sequelize, DataType){
 		burger_name: {
 
 			type: DataType.STRING,
+			allowNull: false,
+			validate: {
+
+				notEmpty: true,
+
+			}
 
 		},
 
@@ -19,6 +25,6 @@ module.exports = function(sequelize, DataType){
 
 	})
 
-	return Burgers
+	return Burgers;
 
 }

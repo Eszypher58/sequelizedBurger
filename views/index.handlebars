@@ -7,9 +7,12 @@
 <form action="/{{this.dataValues.id}}?_method=PUT" method="POST">
 	<input type="textarea" name="customer_name"></input>
 	<button type="submit">Devour!</button>
+	
 </form>
 {{/unless}}
 {{/each}}
+
+<p>{{data.devourErrorMsg}}</p>
 
 <h2>Burgers Devoured</h2>
 {{#each data}}
@@ -22,4 +25,5 @@
 <form action="/" method="POST">
 	<input type="textarea" name="name"></input>
 	<button>submit</button>
+	<p>{{data.submitErrorMsg}}</p>
 </form>
